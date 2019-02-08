@@ -1,5 +1,6 @@
 from functools import wraps
 from flask import jsonify, request
+from connection import mysqlQuery
 
 
 def token_required(f):
@@ -15,3 +16,13 @@ def token_required(f):
         return f(*args, **kwargs)
 
     return decorated
+
+
+def getExamsList():
+    res = mysqlQuery("SHOW TABLES LIKE 'exam_%'", dictionary=False)
+    data = []
+    for row in res:
+        exam = row[0]
+        exam = exam.replace('exam_', '')
+        data.append(exam)
+    return data

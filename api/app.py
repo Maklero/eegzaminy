@@ -1,6 +1,8 @@
 from flask import Flask, jsonify
 from flask_restful import Api
 
+import classes.exams as exams
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -12,7 +14,7 @@ def hello():
 
 
 # API routers
-
+api.add_resource(exams.ExamsList, '/v1/exams/list')  # No parameters
 
 if __name__ == '__main__':
     app.run()
