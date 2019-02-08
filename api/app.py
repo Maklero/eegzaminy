@@ -1,21 +1,17 @@
-from flask import Flask
-from functions import token_required
+from flask import Flask, jsonify
+from flask_restful import Api
 
 app = Flask(__name__)
+api = Api(app)
 
 
+# Static Welcome route
 @app.route('/')
-def hello_world():
-    return 'Hello World!'
-
-def test():
-    return 'taki tam test'
+def hello():
+    return jsonify({'message' : 'Welcom in eegzaminy.pl API!'})
 
 
-@app.route('/protected')
-@token_required
-def test():
-    return 'This route is protected by token'
+# API routers
 
 
 if __name__ == '__main__':
