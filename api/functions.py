@@ -26,3 +26,9 @@ def getExamsList():
         exam = exam.replace('exam_', '')
         data.append(exam)
     return data
+
+
+def getQuestions(name, quantity=40):
+    q = "SELECT * FROM exam_{} ORDER BY RAND() LIMIT 40".format(name)
+    res = mysqlQuery(q)
+    return res
