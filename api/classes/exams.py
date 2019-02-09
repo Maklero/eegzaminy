@@ -17,7 +17,7 @@ class ExamsList(Resource):
 class Exam(Resource):
     def get(self, name=None):
         if name == 'favicon.ico':
-            return jsonify({'message': 'Ni chuja'}), 404
+            return {'message': 'Ni chuja'}, 404
 
         examList = fn.getExamsList()
         if name in examList and name != 'egzamin':

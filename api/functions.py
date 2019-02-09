@@ -9,9 +9,9 @@ def token_required(f):
         try:
             token = request.headers['token']
             if token is '':
-                return jsonify({'message': 'Token is invalid'}), 403
+                return {'message': 'Token is invalid'}, 403
         except KeyError:
-            return jsonify({'message': 'Token is missing!'}), 403
+            return {'message': 'Token is missing!'}, 403
 
         return f(*args, **kwargs)
 
