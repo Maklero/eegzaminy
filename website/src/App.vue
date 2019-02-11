@@ -14,7 +14,12 @@
 </template>
 
 <script>
-function menuExpander() {
+import axios from 'axios';
+
+const API = 'http://192.168.8.118:8080/v1';
+
+function menuExpander(event, skip = false) {
+  if (skip === true) return; // Why doesn't work just `if (skip)`? TODO
   const nav = document.querySelector('#nav');
   if (nav.style.opacity === '0' || nav.style.opacity === '') {
     nav.style.display = 'flex';
@@ -26,8 +31,19 @@ function menuExpander() {
 }
 
 export default {
+  data() {
+    return {
+      list: null,
+    };
+  },
   mounted() {
-    console.log('mounted');
+    axios.get(`${API}/exams/list`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   methods: {
     menuAction: menuExpander,
