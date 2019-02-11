@@ -8,6 +8,12 @@
     <div id="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/about">About</router-link>
+      <router-link
+        v-for="exam in examList"
+        :to="`/${exam.route}`"
+        :key="exam.route">
+        {{ exam.content }}
+      </router-link>
     </div>
     <router-view class="content"/>
   </div>
@@ -19,7 +25,7 @@ import axios from 'axios';
 const API = 'http://192.168.8.118:8080/v1';
 
 function menuExpander(event, skip = false) {
-  if (skip === true) return; // Why doesn't work just `if (skip)`? TODO
+  if (skip === true) return; // TODO Why doesn't work just `if (skip)`?
   const nav = document.querySelector('#nav');
   if (nav.style.opacity === '0' || nav.style.opacity === '') {
     nav.style.display = 'flex';
@@ -33,13 +39,19 @@ function menuExpander(event, skip = false) {
 export default {
   data() {
     return {
-      list: null,
+      examList: [],
     };
   },
   mounted() {
     axios.get(`${API}/exams/list`)
       .then((response) => {
-        console.log(response);
+        const res = response.data.list;
+        res.forEach((r) => {
+          this.examList.push({
+            route: `exam/${r}`,
+            content: r.toUpperCase(),
+          });
+        });
       })
       .catch((error) => {
         console.log(error);
