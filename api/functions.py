@@ -32,3 +32,15 @@ def getQuestions(name, quantity=40):
     q = "SELECT * FROM exam_{} ORDER BY RAND() LIMIT 40".format(name)
     res = mysqlQuery(q)
     return res
+
+
+def getAnswer(nr, egz):
+    q = "SELECT * FROM exam_{} WHERE id = {}".format(egz, nr)
+    res = mysqlQuery(q)
+    return res[0]
+
+
+def getOneQuestion(nr, egz):
+    q = "SELECT * FROM exam_{} WHERE id = {}".format(egz, nr)
+    res = mysqlQuery(q)
+    return res[0]

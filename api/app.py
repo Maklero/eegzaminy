@@ -29,6 +29,7 @@ def hello():
 # API routers
 api.add_resource(exams.ExamsList, '/v1/exams/list')  # No parameters
 api.add_resource(exams.Exam, '/v1/exams/<name>')  # <name> - exam name
+api.add_resource(exams.Verification, '/v1/verify')
 
 if __name__ == '__main__':
     app.run()
