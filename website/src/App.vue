@@ -1,11 +1,9 @@
 <template>
   <div id="app">
-    <div class="menu-clicker" @click="menuAction">
-      <div></div>
-      <div></div>
-      <div></div>
+    <div class="menu-clicker">
+      <HamburgerButton @hamburger="hamburger" />
     </div>
-    <div id="nav">
+    <div class="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/about">About</router-link>
       <router-link
@@ -21,22 +19,12 @@
 
 <script>
 import axios from 'axios';
+import HamburgerButton from '@/components/HamburgerButton.vue';
 
-const API = 'http://192.168.8.118:8080/v1';
-
-function menuExpander(event, skip = false) {
-  if (skip === true) return; // TODO Why doesn't work just `if (skip)`?
-  const nav = document.querySelector('#nav');
-  if (nav.style.opacity === '0' || nav.style.opacity === '') {
-    nav.style.display = 'flex';
-    setTimeout(() => { nav.style.opacity = '1'; }, 1);
-  } else {
-    nav.style.opacity = '0';
-    setTimeout(() => { nav.style.display = 'none'; }, 300);
-  }
-}
+const API = 'http://127.0.0.1:8080/v1';
 
 export default {
+  components: { HamburgerButton },
   data() {
     return {
       examList: [],
@@ -58,12 +46,12 @@ export default {
       });
   },
   methods: {
-    menuAction: menuExpander,
-  },
-  watch: {
-    $route() {
-      // TODO close navigation without changing url
-      menuExpander();
+    hamburger: () => {
+      const menu = document.querySelector('.hamburger');
+      const nav = document.querySelector('.nav');
+
+      menu.classList.toggle('hamburger-active');
+      nav.classList.toggle('nav-open');
     },
   },
 };
@@ -80,49 +68,36 @@ export default {
   }
 
   .menu-clicker {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; align-items: center;
-    width: 50px; height: 50px;
-    background-color: #455A64;
-    border-radius: 50%;
     position: fixed;
-    top: 5px; left: 5px;
-    z-index: 10;
-
-    div {
-      width: 37px;
-      border: 1.5px solid white;
-      margin: 3px 0;
-    }
+    top: 10px;
+    left: 10px;
   }
 
-  #nav {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100vh;
-    padding-top: 60px;
+  .nav {
     display: none;
     flex-direction: column;
+    padding-top: 60px;
     align-items: center;
-    font-size: 2em;
+    width: 100%;
+    height: 100vh;
+    font-size: 2.5em;
+    opacity: 0;
     background-color: #455A64;
-    z-index: 9; opacity: 0;
-    transition: opacity .15s;
+  }
+
+  .nav-open {
+    display: flex;
+    opacity: 1;
+    animation: opacity 220ms;
+  }
+
+  @keyframes opacity {
+    from { opacity: 0;}
+    to { opacity: 1 }
   }
 
   a {
     color: white;
     text-decoration: none;
-    transition: color .15s;
-
-    &:hover {
-      color: wheat;
-    }
-  }
-
-  .content {
-    width: 100%;
-    min-height: 100vh;
   }
 </style>
