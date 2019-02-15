@@ -21,7 +21,7 @@
 import axios from 'axios';
 import HamburgerButton from '@/components/HamburgerButton.vue';
 
-const API = 'http://127.0.0.1:8080/v1';
+const API = 'http://192.168.8.118:8080/v1';
 
 export default {
   components: { HamburgerButton },
@@ -54,6 +54,15 @@ export default {
       nav.classList.toggle('nav-open');
     },
   },
+  watch: {
+    $route() {
+      const menu = document.querySelector('.hamburger');
+      const nav = document.querySelector('.nav');
+      // Niestety muszę się powtórzyć, anlaaaki
+      menu.classList.remove('hamburger-active');
+      nav.classList.remove('nav-open');
+    },
+  },
 };
 </script>
 
@@ -61,6 +70,7 @@ export default {
   body {
     margin: 0;
     padding: 0;
+    background-color: #333;
   }
 
   * {
@@ -68,33 +78,33 @@ export default {
   }
 
   .menu-clicker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
-    top: 10px;
-    left: 10px;
+    background-color: rgba(69,90,100, .6);
+    top: 5px; left: 5px;
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    z-index: 21;
   }
 
   .nav {
-    display: none;
-    flex-direction: column;
-    padding-top: 60px;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    font-size: 2.5em;
-    opacity: 0;
-    background-color: #455A64;
-  }
-
-  .nav-open {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    width: 100%; height: 100vh;
+    padding-top: 60px;
+    left: -100%;
+    font-size: 2.5em;
+    background-color: #455A64;
     opacity: 1;
-    animation: opacity 220ms;
+    z-index: 20;
+    transition: left .3s;
   }
 
-  @keyframes opacity {
-    from { opacity: 0;}
-    to { opacity: 1 }
-  }
+  .nav-open {left: 0;}
 
   a {
     color: white;

@@ -19,5 +19,9 @@ export default new Router({
       name: 'about',
       component: Home,
     },
+    {
+      path: '/exam/:name',
+      name: 'exam',
+    },
   ],
 });
