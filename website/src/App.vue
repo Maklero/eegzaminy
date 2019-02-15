@@ -20,8 +20,9 @@
 <script>
 import axios from 'axios';
 import HamburgerButton from '@/components/HamburgerButton.vue';
+import dataFile from '@/api.json';
 
-const API = 'http://192.168.8.118:8080/v1';
+const API = dataFile.url;
 
 export default {
   components: { HamburgerButton },
