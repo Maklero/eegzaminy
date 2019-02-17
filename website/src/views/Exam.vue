@@ -1,5 +1,6 @@
 <template>
   <div class="exam-container">
+    <h1 class="title">{{ examData.title }}</h1>
     <form class="exam">
       <Question
         v-for="(question, index) in examData.questions"
@@ -59,6 +60,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .title {
+    position: fixed;
+    margin: 0;
+    top: 0; left: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center; align-items: center;
+    text-transform: uppercase;
+    background-color: #455A64;
+    box-shadow: 0 2px 2px black;
+  }
+
   .exam {
     width: 100%;
     display: flex;
