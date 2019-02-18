@@ -14,7 +14,9 @@ cors = CORS(app, resources={
             "http://192.168.8.*",
             "http://192.168.8.*:*",
             "https://localhost",
-            "https://*.eegzaminy.pl"
+            "https://*.eegzaminy.pl",
+            "http://test.eegzaminy.pl/",
+            "*",
         ]
     }
 })
