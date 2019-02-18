@@ -1,7 +1,7 @@
 <template>
   <div class="exam-container">
     <h1 class="title">{{ examData.title }}</h1>
-    <form class="exam">
+    <form class="exam" id="exam-form">
       <Question
         v-for="(question, index) in examData.questions"
         :names="examData.name"
@@ -11,7 +11,14 @@
       />
       <input type="hidden" :value="questionsNumbersList" name="list">
       <input type="hidden" :value="examData.title" name="egzam_name"/>
-      <button type="button" id="button">Sprawdź</button>
+      <button
+        type="button"
+        class="button"
+        id="check-exam"
+        @click="checkExam"
+      >
+        Sprawdź
+      </button>
     </form>
   </div>
 </template>
@@ -45,6 +52,14 @@ export default {
         })
         .catch(error => console.log(error));
     },
+    checkExam() {
+      const fm = document.querySelector('#exam-form');
+      axios.post(`${API}/verify`, fm)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(error => console.log(error));
+    },
   },
   mounted() {
     this.examName = this.$route.params.name;
@@ -71,6 +86,7 @@ export default {
     text-transform: uppercase;
     background-color: #455A64;
     box-shadow: 0 2px 2px black;
+    z-index: 20;
   }
 
   .exam {
@@ -78,5 +94,9 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .button {
+    width: 98%;
   }
 </style>

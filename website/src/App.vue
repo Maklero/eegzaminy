@@ -117,4 +117,18 @@ export default {
     margin-top: 60px;
     padding: 5px;
   }
+
+  .button {
+    min-width: 200px;
+    min-height: 50px;
+    background-color: #e0e0e0;
+    border: 1px solid #bdbdbd;
+    font-size: 1.3em;
+    transition: .15s;
+
+    &:active {
+      background-color: #bdbdbd;
+      border-color: #9e9e9e;
+    }
+  }
 </style>
