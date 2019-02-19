@@ -86,7 +86,7 @@ export default {
     text-transform: uppercase;
     background-color: #455A64;
     box-shadow: 0 2px 2px black;
-    z-index: 20;
+    z-index: 19;
   }
 
   .exam {
