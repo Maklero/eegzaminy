@@ -1,7 +1,7 @@
 <template>
   <div class="exam-container">
     <h1 class="title">{{ examData.title }}</h1>
-    <form class="exam" id="exam-form">
+    <form class="exam" id="exam-form" @submit.prevent="checkExam">
       <Question
         v-for="(question, index) in examData.questions"
         :names="examData.name"
@@ -10,12 +10,11 @@
         :key="question.id"
       />
       <input type="hidden" :value="questionsNumbersList" name="list">
-      <input type="hidden" :value="examData.title" name="egzam_name"/>
+      <input type="hidden" :value="examData.title" name="egz_name"/>
       <button
-        type="button"
+        type="submit"
         class="button"
         id="check-exam"
-        @click="checkExam"
       >
         Sprawdź
       </button>
@@ -52,13 +51,26 @@ export default {
         })
         .catch(error => console.log(error));
     },
-    checkExam() {
-      const fm = document.querySelector('#exam-form');
+    checkExam(submitEvent) {
+      const fm = new FormData();
+      const formElements = [...submitEvent.target.elements];
+
+      formElements.forEach((el) => {
+        if (el.checked) {
+          fm.append(el.name, el.value);
+        } else if (el.type === 'hidden') {
+          fm.append(el.name, el.value);
+        }
+      });
       axios.post(`${API}/verify`, fm)
         .then((response) => {
-          console.log(response);
+          formElements.forEach(this.validateExam(response.data, formElements));
         })
         .catch(error => console.log(error));
+    },
+    validateExam(answersData, formElements) {
+      console.log(answersData);
+      const list = answersData.userData.list.split(';');
     },
   },
   mounted() {

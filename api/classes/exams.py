@@ -47,12 +47,12 @@ class Verification(Resource):
                 qObj = fn.getOneQuestion(nr=inr, egz=data['egz_name'])
                 questions[inr] = {
                     'q': qObj,
-                    'popr': qObj['answer'],
+                    'valid': qObj['answer'],
                     'user': None
                 }
                 if nr in data:
                     questions[inr]['user'] = data[nr]
-                    if questions[inr]['popr'] == data[nr]:
+                    if questions[inr]['valid'] == data[nr]:
                         percent += 1
 
             percent = (percent / (len(questionsInTest) - 1)) * 100
@@ -63,7 +63,6 @@ class Verification(Resource):
                 'percent': percent,
                 'name': namesDict
             }
-
             return out, 200
 
         except MissingDataException:
