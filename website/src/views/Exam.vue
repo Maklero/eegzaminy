@@ -69,6 +69,7 @@ export default {
         .catch(error => console.log(error));
     },
     validateExam(answersData, formElements) {
+      console.log(answersData, formElements);
       return 0;
     },
   },
