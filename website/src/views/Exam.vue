@@ -69,8 +69,7 @@ export default {
         .catch(error => console.log(error));
     },
     validateExam(answersData, formElements) {
-      console.log(answersData);
-      const list = answersData.userData.list.split(';');
+      return 0;
     },
   },
   mounted() {

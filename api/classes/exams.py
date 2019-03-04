@@ -39,7 +39,6 @@ class Verification(Resource):
             questionsInTest = data['list'].split(';')
             questions = {}
             percent: float = 0
-
             for nr in questionsInTest:
                 if nr == '':
                     continue
@@ -47,7 +46,7 @@ class Verification(Resource):
                 qObj = fn.getOneQuestion(nr=inr, egz=data['egz_name'])
                 questions[inr] = {
                     'q': qObj,
-                    'valid': qObj['answer'],
+                    # 'valid': qObj['answer'],
                     'user': None
                 }
                 if nr in data:
