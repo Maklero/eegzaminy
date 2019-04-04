@@ -3,6 +3,7 @@ from flask_restful import Api
 from flask_cors import CORS
 
 import classes.exams as exams
+import classes.admin as admin
 
 app = Flask(__name__)
 api = Api(app)
@@ -32,6 +33,10 @@ def hello():
 api.add_resource(exams.ExamsList, '/v1/exams/list')  # No parameters
 api.add_resource(exams.Exam, '/v1/exams/<name>')  # <name> - exam name
 api.add_resource(exams.Verification, '/v1/verify')
+
+
+# Admin routers
+api.add_resource(admin.Logging, '/v1/admin/logging')  # token required
 
 if __name__ == '__main__':
     app.run()

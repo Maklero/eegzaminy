@@ -29,7 +29,7 @@ def getExamsList():
 
 
 def getQuestions(name, quantity=40):
-    q = "SELECT * FROM exam_{} ORDER BY RAND() LIMIT 40".format(name)
+    q = "SELECT * FROM exam_{} ORDER BY RAND() LIMIT {}".format(name, quantity)
     res = mysqlQuery(q)
     return res
 
