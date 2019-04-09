@@ -1,12 +1,19 @@
 from flask import Flask, jsonify
 from flask_restful import Api
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from data.data import data
 
 import classes.exams as exams
 import classes.admin as admin
 
+DB_URI = "mysql+pymysql://{}:{}@{}/{}".format(data['user'], data['passwd'], data['host'], data['database'])
+
 app = Flask(__name__)
 api = Api(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 cors = CORS(app, resources={
     r"/v1/*": {
         "origins": [
@@ -37,6 +44,10 @@ api.add_resource(exams.Verification, '/v1/verify')
 
 # Admin routers
 api.add_resource(admin.Logging, '/v1/admin/logging')  # token required
+
+# test router
+from test import Test
+api.add_resource(Test, '/v1/test')
 
 if __name__ == '__main__':
     app.run()
