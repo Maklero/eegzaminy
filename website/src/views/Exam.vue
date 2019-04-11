@@ -64,7 +64,8 @@ export default {
       });
       axios.post(`${API}/verify`, fm)
         .then((response) => {
-          formElements.forEach(this.validateExam(response.data, formElements));
+          // formElements.forEach(this.validateExam(response.data, formElements));
+          console.log(response.data)
         })
         .catch(error => console.log(error));
     },
