@@ -8,5 +8,4 @@ class Test(Resource):
         test = BasicExamModel('ee09')
         question = test.oneQuestion(3)
         print(question.question)
-        print(getTables())
         return {'message': 'ok'}

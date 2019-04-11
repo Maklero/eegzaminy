@@ -4,9 +4,6 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from data.data import data
 
-import classes.exams as exams
-import classes.admin as admin
-
 DB_URI = "mysql+pymysql://{}:{}@{}/{}".format(data['user'], data['passwd'], data['host'], data['database'])
 
 app = Flask(__name__)
@@ -37,12 +34,16 @@ def hello():
 
 
 # API routers
+import classes.exams as exams
+
 api.add_resource(exams.ExamsList, '/v1/exams/list')  # No parameters
 api.add_resource(exams.Exam, '/v1/exams/<name>')  # <name> - exam name
 api.add_resource(exams.Verification, '/v1/verify')
 
 
 # Admin routers
+import classes.admin as admin
+
 api.add_resource(admin.Logging, '/v1/admin/logging')  # token required
 
 # test router

@@ -2,6 +2,7 @@ from flask import jsonify, request
 from flask_restful import Resource
 import functions as fn
 from Exceptions.Requests import *
+from models import BasicExamModel
 
 namesDict = {1: 'A', 2: 'B', 3: 'C', 4: 'D'}
 
@@ -16,7 +17,28 @@ class ExamsList(Resource):
 
 # Return requested exam
 class Exam(Resource):
+    examModel = None
+
+    def getQuestions(self):
+        questions = []
+        questionsObject = self.examModel.questions()
+
+        for q in questionsObject:
+            questions.append({
+                'id': q.id,
+                'question': q.question,
+                'A': q.A,
+                'B': q.B,
+                'C': q.C,
+                'D': q.D,
+                'answer': q.answer,
+                'img': q.img
+            })
+        self.examModel = None
+        return questions
+
     def get(self, name=None):
+        self.examModel = BasicExamModel(name)
         if name == 'favicon.ico':
             return {'message': 'Ni chuja'}, 404
 
@@ -24,7 +46,7 @@ class Exam(Resource):
         if name in examList and name != 'egzamin':
             data = {
                 'title': name,
-                'questions': fn.getQuestions(name),
+                'questions': self.getQuestions(),
                 'name': namesDict
             }
             return data, 200

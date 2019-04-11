@@ -1,5 +1,6 @@
 from app import db
 from sqlalchemy.sql.expression import func
+from sqlalchemy import MetaData
 
 
 class UsersModel(db.Model):
@@ -13,9 +14,7 @@ class UsersModel(db.Model):
 def BasicExamModel(name):
     class Model(db.Model):
         __tablename__ = 'exam_{name}'.format(name=name)
-
-        def __init__(self, examName):
-            self.__tablename__ = 'exam_{}'.format(examName)
+        extend_existing = True
 
         id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True, nullable=False)
         question = db.Column(db.Text, nullable=False)
