@@ -37,6 +37,7 @@ def load_resources():
     api.add_resource(ExamList, '/exams/list')
     api.add_resource(Verification, '/verify')
 
+
 def register_blueprints(app: Flask):
     from .resources.v1 import api_v1
 
