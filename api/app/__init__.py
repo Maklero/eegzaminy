@@ -29,13 +29,23 @@ def load_resources():
     # API v1
     from .resources.v1 import api_v1
     from .resources.v1 import Greeting, Exam, ExamList, Verification
-    
+    from .resources.v1 import UserLogin, UserLogoutAccess, UserLogoutRefresh, TokenRefresh, ProtectedResource
+
     api = Api(api_v1)
 
     api.add_resource(Greeting, '/')
+
+    # Exams
     api.add_resource(Exam, '/exams/<name>')
     api.add_resource(ExamList, '/exams/list')
     api.add_resource(Verification, '/verify')
+
+    # Admin
+    api.add_resource(UserLogin, '/account/login')
+    api.add_resource(UserLogoutAccess, '/account/logout/access')
+    api.add_resource(UserLogoutRefresh, '/account/logout/refresh')
+    api.add_resource(TokenRefresh, '/account/token/refresh')
+    api.add_resource(ProtectedResource, '/account/protected')
 
 
 def register_blueprints(app: Flask):
