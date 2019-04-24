@@ -1,5 +1,7 @@
 from app.extensions import db, ma
 from sqlalchemy.sql.expression import func
+from passlib.hash import pbkdf2_sha256 as sha256
+
 
 def BasicExamModel(name):
     class Model(db.Model):
@@ -50,3 +52,27 @@ class BasicExamSchema(ma.Schema):
 class ExamsListSchema(ma.Schema):
     class Meta:
         fields = ('id', 'exam_name')
+
+
+class UserModel(db.Model):
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.Text, unique=True, nullable=False)
+    password = db.Column(db.Text, nullable=False)
+
+    def add_user(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def find_by_username(cls, username):
+        return cls.query.filter_by(username=username).first()
+
+    @staticmethod
+    def generate_hash(password):
+        return sha256.hash(password)
+
+    @staticmethod
+    def verify_hash(password, hashed):
+        return sha256.verify(password, hashed)

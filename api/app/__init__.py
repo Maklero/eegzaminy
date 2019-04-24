@@ -29,7 +29,7 @@ def load_resources():
     # API v1
     from .resources.v1 import api_v1
     from .resources.v1 import Greeting, Exam, ExamList, Verification
-    from .resources.v1 import UserLogin, UserLogoutAccess, UserLogoutRefresh, TokenRefresh, ProtectedResource
+    from .resources.v1 import UserLogin, UserLogoutAccess, UserLogoutRefresh, TokenRefresh, ProtectedResource, UserRegistration
 
     api = Api(api_v1)
 
@@ -41,6 +41,7 @@ def load_resources():
     api.add_resource(Verification, '/verify')
 
     # Admin
+    api.add_resource(UserRegistration, '/account/registration')
     api.add_resource(UserLogin, '/account/login')
     api.add_resource(UserLogoutAccess, '/account/logout/access')
     api.add_resource(UserLogoutRefresh, '/account/logout/refresh')

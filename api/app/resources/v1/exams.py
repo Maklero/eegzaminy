@@ -10,6 +10,7 @@ NAMES = {1: 'A', 2: 'B', 3: 'C', 4: 'D'}
 examsListSchema = ExamsListSchema(many=True)
 ExamSchema = BasicExamSchema(many=True)
 
+
 class ExamList(BaseResource):
     def get(self):
         exams_list_db = ExamsList.query.all()
