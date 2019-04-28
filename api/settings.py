@@ -9,6 +9,8 @@ class Settings(object):
 
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{user}:{password}@{host}/{database}'.format(user=data['user'], password=data['passwd'], host=data['host'], database=data['database'])
 
+    JWT_SECRET_KEY = 'jwt-secret-string'
+
     CORS_RESOURCES = {
         r"/v1/*": {
             "origins": [

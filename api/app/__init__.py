@@ -7,11 +7,12 @@ def load_settings(app: Flask, settings_obj: object):
 
 
 def load_extensions(app: Flask):
-    from .extensions import ma, db, cors
+    from .extensions import ma, db, cors, jwt
 
     db.init_app(app)
     ma.init_app(app)
     cors.init_app(app)
+    jwt.init_app(app)
 
 
 def load_hooks(app: Flask):
