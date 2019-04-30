@@ -1,3 +1,4 @@
+import random
 from flask import Flask
 from flask_restful import Api
 
@@ -34,20 +35,24 @@ def load_resources():
 
     api = Api(api_v1)
 
-    api.add_resource(Greeting, '/')
+    def fix_error():
+        endpoint = str(random.randint(1, 99999999999999999))
+        return endpoint
+
+    api.add_resource(Greeting, '/', endpoint=fix_error())
 
     # Exams
-    api.add_resource(Exam, '/exams/<name>')
-    api.add_resource(ExamList, '/exams/list')
-    api.add_resource(Verification, '/verify')
+    api.add_resource(Exam, '/exams/<name>', endpoint=fix_error())
+    api.add_resource(ExamList, '/exams/list', endpoint=fix_error())
+    api.add_resource(Verification, '/verify', endpoint=fix_error())
 
     # Admin
-    api.add_resource(UserRegistration, '/account/registration')
-    api.add_resource(UserLogin, '/account/login')
-    api.add_resource(UserLogoutAccess, '/account/logout/access')
-    api.add_resource(UserLogoutRefresh, '/account/logout/refresh')
-    api.add_resource(TokenRefresh, '/account/token/refresh')
-    api.add_resource(ProtectedResource, '/account/protected')
+    api.add_resource(UserRegistration, '/account/registration', endpoint=fix_error())
+    api.add_resource(UserLogin, '/account/login', endpoint=fix_error())
+    api.add_resource(UserLogoutAccess, '/account/logout/access', endpoint=fix_error())
+    api.add_resource(UserLogoutRefresh, '/account/logout/refresh', endpoint=fix_error())
+    api.add_resource(TokenRefresh, '/account/token/refresh', endpoint=fix_error())
+    api.add_resource(ProtectedResource, '/account/protected', endpoint=fix_error())
 
 
 def register_blueprints(app: Flask):

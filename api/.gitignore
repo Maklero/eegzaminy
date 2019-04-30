@@ -1,4 +1,6 @@
 venv/
+.venv/
+.coverage
 *__pycache__/
 data.py
 .vscode/
