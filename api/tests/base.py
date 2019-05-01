@@ -23,3 +23,7 @@ class ResourceTestCase(BaseTestCase):
     
     def tearDown(self):
         pass
+
+
+class ModelTestCase(BaseTestCase):
+    pass

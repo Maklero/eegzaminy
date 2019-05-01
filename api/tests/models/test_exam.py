@@ -1,7 +1,7 @@
-from tests.base import BaseTestCase, skip
+from tests.base import ModelTestCase, skip
 
 
-class TestExamModel(BaseTestCase):
+class TestExamModel(ModelTestCase):
 
 
     @skip('Not implemented.')

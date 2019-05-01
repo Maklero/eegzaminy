@@ -1,16 +1,32 @@
+import json
 from tests.base import ResourceTestCase, skip
 
 class TestGreetingResource(ResourceTestCase):
 
-    @skip('Not implemented.')
     def test_response_status(self):
-        pass
+        response = self.client.get('/v1/')
+        response_status = response.status_code
+
+        self.assertEqual(response_status, 200)
 
 
-    @skip('Not implemented.')
     def test_response_content_type(self):
-        pass
+        response = self.client.get('/v1/')
+        response_content_type = response.content_type
 
-    @skip('Not implemented.')
+        self.assertEqual(response_content_type, 'application/json')
+
+
     def test_response_data(self):
-        pass
+        response = self.client.get('/v1/')
+        response_data = response.data
+        response_data = json.loads(response_data)
+
+        # Response data structure
+        msg = response_data['msg']
+        exams_list_url = response_data['exams_list_url']
+        exam_url = response_data['exam_url']
+
+        self.assertNotEqual(msg, '')
+        self.assertNotEqual(exams_list_url, '')
+        self.assertNotEqual(exam_url, '')
